@@ -1,0 +1,145 @@
+<BtnSound@Button>:
+	color: 1, 1, 1, 0.5
+	width: 50
+
+<TabTitle@Label>:
+	font_size: 60
+	canvas.before:
+		Color:
+			rgba: 1, 1, 1, 0.1
+		Rectangle:
+			pos: self.pos
+			size: self.size
+	#	BorderImage:
+	#		pos: self.pos
+	#		size: self.size
+	#		border: 30, 30, 30, 30
+	#canvas:
+
+<MainLayout>
+	
+
+
+	BoxLayout:
+		size: root.width, root.height
+		orientation: 'vertical'
+
+# This is the top bar
+
+		BoxLayout:
+			size_hint: 1, 0.05
+			orientation: 'horizontal'
+
+			Button:
+				size_hint: 0.1, 1
+				text: "Home"
+				on_press: app.do_basic_command("keypress/Home")
+
+			Button:
+				size_hint: 0.1, 1
+				text: "Power"
+				on_press: app.do_toggle_power()
+
+			Label:
+				size_hint: 0.7, 1
+				text: "Roku"
+
+			Button:
+				size_hint: 0.1, 1
+				text: "Refresh"
+				on_press: app.do_refresh_connection()
+
+# This is everything beneath the top bar
+
+		BoxLayout:
+			orientation: 'horizontal'
+			canvas.before:
+				Color:
+					rgb: 0, 0, 0
+				Rectangle:
+					pos: self.pos
+					size: self.size
+
+
+# This is the left side
+
+			BoxLayout:
+				size_hint: 0.15, 1
+				orientation: 'vertical'
+				canvas.before:
+					Color:
+						rgb: 0.9, 1, 0.9
+					Rectangle:
+						pos: self.pos
+						size: self.size
+
+
+				# Volume control
+				BoxLayout:
+					orientation: 'horizontal'
+					size_hint: 1, 0.15
+					canvas.before:
+						Color:
+							rgb: 0, 0, 0
+						Rectangle:
+							pos: self.pos
+							size: self.size
+
+					Label:
+						size_hint: 0.2, 1
+						text: "t\ne\ns\nt"
+
+
+
+					BoxLayout:
+						
+						orientation: 'vertical'
+
+						Button:
+							text: "Up"
+							on_press: app.do_basic_command("keypress/VolumeUp")
+
+						Button:
+							text: "Down"
+							on_press: app.do_basic_command("keypress/VolumeDown")
+
+
+				# Empty
+				Widget:
+
+
+
+
+# This is the right side
+
+			TabbedPanel:
+				do_default_tab: False
+				strip_border: 0, 0, 0, 0
+				tab_width: self.width / 3
+
+				TabbedPanelItem:
+					text: "Apps"
+
+					BoxLayout:
+						orientation: 'vertical'
+
+
+						TabTitle:
+							id: app_tab_label
+							size_hint: 1, 0.1
+							text: "Installed Apps"
+
+						ScrollView:
+							id: app_scroll
+							do_scroll_x: False
+							do_scroll_y: True
+
+
+				TabbedPanelItem:
+					text: "Available Roku Devices"
+					id: devices_tab
+
+				TabbedPanelItem:
+					text: "Third tab"
+					Label:
+						text: "Content of the third tab"
